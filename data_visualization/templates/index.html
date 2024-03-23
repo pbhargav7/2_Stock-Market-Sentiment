@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .header-container {
+            background-color: #ffffff;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .table-container {
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: #000000;
+        }
+        h2 {
+            color: #0f5713;
+        }
+        h3 {
+            color: #af1e1e;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .btn-saffron {
+            background-color: #FF9933; /* Saffron color */
+            border-color: #FF9933;
+        }
+        .btn-saffron:hover {
+            background-color: #ff8000; /* Saffron color */
+            border-color: #ff8000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-container">
+            <h1>Welcome to Stock Analysis Portal</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-container">
+                    <h2 class="mb-4">Stock Details</h2>
+                    <form id="stockDetailsForm" method="post" action="/stock-details">
+                        <div class="mb-3">
+                            <label for="companySelect" class="form-label">Select Company:</label>
+                            <select class="form-select" id="companySelect" name="company">
+                                <option value="">Select a Stock Name</option>
+                                {% for company in companies %}
+                                    <option value="{{ company }}">{{ company }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="subredditSelect" class="form-label">Select Subreddit (Optional):</label>
+                            <select class="form-select" id="subredditSelect" name="subreddit">
+                                <option value="">Select a Subreddit Name</option>
+                                {% for subreddit in subreddits %}
+                                    <option value="{{ subreddit }}">{{ subreddit }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Get Stock Details</button>
+                        <a href="/view-ticker-sync-data" class="btn btn-saffron ms-2">Get All Stocks</a>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-container">
+                    <h2 class="mb-4">Reddit Details</h2>
+                    <form id="redditDetailsForm" action="/view-reddit-data" method="get">
+                        <div class="mb-3">
+                            <label for="subredditSelectReddit" class="form-label">Select Subreddit:</label>
+                            <select class="form-select" id="subredditSelectReddit" name="subreddit">
+                                <option value="">Choose a subreddit</option>
+                                {% for subreddit in subreddits %}
+                                    <option value="{{ subreddit }}">{{ subreddit }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">View Reddit Data</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <h3>Processed Data</h3>
+            <table class="table table-striped table-bordered">
+                <tbody>
+                    {% for table_name, count in table_counts.items() %}
+                    <tr>
+                        <td>{{ table_name }}</td>
+                        <td>{{ count }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Your existing JavaScript code for form submission
+        });
+    </script>
+</body>
+</html>

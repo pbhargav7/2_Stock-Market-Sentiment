@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reddit Data</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        h2 {
+            color: #0f5713;
+        }
+
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Reddit Data for: r/{{ subreddit }}</h2>
+
+        {% for subreddit, url in posts_plot_url.items() %}
+            {% if url != 'no_data' %}
+                <div class="mt-4">
+                    <img src="data:image/png;base64,{{ url }}" alt="Reddit Posts Plot for {{ subreddit }}" class="img-fluid">
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        {% for subreddit, url in comments_plot_url.items() %}
+            {% if url != 'no_data' %}
+                <div class="mt-4">
+                    <img src="data:image/png;base64,{{ url }}" alt="Reddit Comments Plot for {{ subreddit }}" class="img-fluid">
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        {% for subreddit, url in hate_speech_plot_url.items() %}
+            {% if url != 'no_data' %}
+                <div class="mt-4">
+                    <img src="data:image/png;base64,{{ url }}" alt="Hate Speech Plot for {{ subreddit }}" class="img-fluid">
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <a href="/" class="btn btn-primary mt-3">Back to Home</a>
+    </div>
+</body>
+</html>

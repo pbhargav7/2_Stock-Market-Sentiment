@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        h1, h2 {
+            color: #0f5713;
+        }
+
+        .card {
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            color: #0f5713;
+        }
+
+        .card-text {
+            color: #000000;
+        }
+
+        .mt-4 {
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Stock Details</h1>
+
+        {% if stock %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ stock['company_name'] }}</h5>
+                    <p class="card-text"><strong>Ticker:</strong> {{ stock['ticker'] }}</p>
+                    <p class="card-text"><strong>Number of InSync Data with Reddit:</strong> {{ stock['number_of_insync'] }}</p>
+                    <p class="card-text"><strong>Number of OutSync Data with Reddit:</strong> {{ stock['number_of_outsync'] }}</p>
+                    <p class="card-text"><strong>Dependency:</strong> {{ stock['dependency'] }}%</p>
+                    <p class="card-text"><strong>Confidence:</strong> {{ "%.1f"|format(stock['reliability']|float) }}%</p>
+                    
+                </div>
+            </div>
+        {% else %}
+            <p>{{ error_message }}</p>
+        {% endif %}
+
+        {% if stock_plot_url %}
+            <div class="mt-4">
+                <h2>Stock Interactions Over Time</h2>
+                <img src="data:image/png;base64,{{ stock_plot_url }}" alt="Stock Plot">
+            </div>
+        {% endif %}
+
+        <!-- Subreddit Interaction Graph -->
+        {% if subreddit_plot_url %}
+            {% if subreddit_plot_url != 'no_data' %}
+                <div class="mt-4">
+                    <h2>Subreddit Interactions Over Time</h2>
+                    <img src="data:image/png;base64,{{ subreddit_plot_url }}" alt="Subreddit Plot">
+                </div>
+            {% else %}
+                <div class="mt-4">
+                    <h2>Subreddit Interactions Over Time</h2>
+                    <p>No data available for the selected subreddit.</p>
+                </div>
+            {% endif %}
+        {% endif %}
+
+        {% if trending_dates %}
+        <h2>Major Trending Dates On The Market</h2>
+        <table class="table">
+            <tbody>
+                {% for date in trending_dates %}
+                <tr>
+                    <td>{{ date['trending_date'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+        <a href="/" class="btn btn-primary mt-3">Back to Search</a>
+    </div>
+</body>
+</html>

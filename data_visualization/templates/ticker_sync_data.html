@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Stocks</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #0f5713;
+        }
+
+        table {
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        th {
+            background-color: #ffffff;
+            color: #FF9933;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .btn-saffron {
+            background-color: #FF9933; /* Saffron color */
+            border-color: #FF9933;
+        }
+        .btn-saffron:hover {
+            background-color: #ff8000; /* Saffron color */
+            border-color: #ff8000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Stock and Dependency on Reddit</h1>
+
+        {% if ticker_sync_data %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Trading Code</th>
+                            <th>Company Name</th>
+                            <th>Number of In Sync</th>
+                            <th>Number of Out Sync</th>
+                            <th>Dependency</th>
+                            <th>Confidence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in ticker_sync_data %}
+                            <tr>
+                                <td>{{ item.ticker }}</td>
+                                <td>{{ item.company_name }}</td>
+                                <td>{{ item.number_of_insync }}</td>
+                                <td>{{ item.number_of_outsync }}</td>
+                                <td>{{ item.dependency|string }}%</td>
+                                <td>{{ "%.1f"|format(item.reliability) }}%</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>No Ticker Sync Data available.</p>
+        {% endif %}
+
+        <a href="/" class="btn btn-saffron mt-3">Back to Home</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
