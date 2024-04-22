@@ -96,3 +96,4 @@ Ensure the following dependencies are installed:
 
 - Ensure all dependencies are installed and the PostgreSQL server is running before starting the Flask application.
 - For detailed information on each script and its functionality, refer to the script files.
+
