@@ -27,7 +27,7 @@ Instructions for how to use your project after it's installed. -->
 # Project: Data Visualization 📊
 
 ## 🌟 Overview
-This project is an extension of Project 2, incorporating a data visualization component into a Flask web application 🌐. The primary focus is on stock market data 📈 and Reddit and Yahoo post analysis, interfacing with a PostgreSQL database and displaying data through various visualizations.
+This project is incorporating a data visualization component into a Flask web application 🌐. The primary focus is on stock market data 📈 and Reddit and Yahoo post analysis, interfacing with a PostgreSQL database and displaying data through various visualizations.
 
 ## 📁 Project Components
 
